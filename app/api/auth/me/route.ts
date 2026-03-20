@@ -4,15 +4,29 @@ import { connectDB } from "@/lib/db";
 import User from "@/models/user.model";
 
 export async function GET(req: NextRequest) {
-  const token = req.cookies.get('auth_token')?.value;
+  try {
+    const token = req.cookies.get('auth_token')?.value;
 
-  if (!token) return NextResponse.json({ error: "No token" }, { status: 401 });
+    if (!token) {
+      return NextResponse.json({ user: null }, { status: 200 }); // Return 200 so fetch doesn't crash
+    }
 
-  const decoded: any = await verifyToken(token);
-  if (!decoded) return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    const decoded: any = await verifyToken(token);
+    if (!decoded) {
+      return NextResponse.json({ user: null }, { status: 200 });
+    }
 
-  await connectDB();
-  const user = await User.findById(decoded.userId).select("-password");
+    await connectDB();
+    const user = await User.findById(decoded.userId).select("-password");
 
-  return NextResponse.json(user);
+    if (!user) {
+      return NextResponse.json({ user: null }, { status: 200 });
+    }
+
+    // Wrap the response in a 'user' object
+    return NextResponse.json({ user }, { status: 200 });
+    
+  } catch (error) {
+    return NextResponse.json({ user: null }, { status: 500 });
+  }
 }
