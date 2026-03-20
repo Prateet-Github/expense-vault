@@ -16,16 +16,13 @@ export const verifyToken = async (token: string) => {
   }
 
   try {
-    // Convert secret string to Uint8Array for jose
     const secret = new TextEncoder().encode(JWT_SECRET);
-
-    // Verify the token
+    
     const { payload } = await jose.jwtVerify(token, secret);
 
-    // Return the decoded data (userId, email, etc.)
     return payload;
   } catch (error) {
     console.error("JWT_VERIFY_ERROR:", error);
-    return null; // Return null so you can handle "Unauthorized" easily
+    return null;
   }
 };
