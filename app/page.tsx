@@ -4,7 +4,7 @@ import Hero from "@/components/section/Hero";
 
 const Home = () => {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex min-h-screen flex-col pt-16">
       <Navbar />
       <Hero />
       <Footer />

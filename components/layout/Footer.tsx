@@ -84,7 +84,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="pt-6 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} StreamIt. Made with ❤️ by Prateet Tiwari
+          © {new Date().getFullYear()} Expense Tracker. Made by Prateet Tiwari.
         </div>
       </div>
     </footer>
