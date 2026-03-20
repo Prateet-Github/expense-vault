@@ -7,6 +7,7 @@ const Home = () => {
     <main className="flex min-h-screen flex-col pt-16">
       <Navbar />
       <Hero />
+      <Hero />
       <Footer />
     </main>
   );
