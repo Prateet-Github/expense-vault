@@ -41,7 +41,7 @@ export default function AddExpenseModal({ onClose, onSuccess }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4">
       {/* Modal */}
       <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-md space-y-5 animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}

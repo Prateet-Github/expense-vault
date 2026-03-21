@@ -72,7 +72,7 @@ const Navbar = () => {
             <div className="flex gap-4">
               <Link
                 href="/signup"
-                className="border-2 border-emerald-600 hover:border-emerald-700 py-2 px-4 rounded-lg"
+                className="border-2 border-emerald-600 hover:border-emerald-700 py-2 px-4 rounded-lg text-emerald-500"
               >
                 Sign Up
               </Link>
@@ -126,7 +126,7 @@ const Navbar = () => {
           {/* Bottom */}
           <div className="mt-auto">
             {user ? (
-              <button className="w-full bg-red-500/10 text-red-400 py-4 rounded-xl font-bold">
+              <button className="w-full border border-rose-400 text-red-400 py-4 rounded-xl font-bold">
                 Logout
               </button>
             ) : (

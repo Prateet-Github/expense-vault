@@ -18,7 +18,7 @@ const Cta = () => {
           </div>
 
           <Link
-            href="/signup"
+            href="/dashboard"
             className="bg-black text-emerald-500 px-6 sm:px-8 py-3 rounded-xl font-bold hover:scale-105 transition w-full sm:w-auto text-center"
           >
             Get Started →

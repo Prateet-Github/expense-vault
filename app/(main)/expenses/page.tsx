@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Trash2, Plus, Loader2 } from "lucide-react";
-import Link from "next/link";
 import AddExpenseModal from "@/components/ui/AddExpenseModal";
 
 interface Expense {
@@ -17,6 +16,7 @@ export default function ExpensesPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
 
   useEffect(() => {
     fetchExpenses();
@@ -57,6 +57,13 @@ export default function ExpensesPage() {
     }
   };
 
+  const filteredExpenses = selectedDate
+    ? expenses.filter((exp) => {
+        const expDate = new Date(exp.date).toLocaleDateString("en-CA");
+        return expDate === selectedDate;
+      })
+    : expenses;
+
   if (loading) {
     return (
       <div className="h-[80vh] flex items-center justify-center">
@@ -68,7 +75,7 @@ export default function ExpensesPage() {
   return (
     <div className="min-h-screen max-w-7xl mx-auto px-4 py-10 text-white">
       {/* Header */}
-      <div className="flex justify-between items-center mb-10">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <h1 className="text-2xl font-bold">Your Expenses</h1>
 
         <button
@@ -79,10 +86,29 @@ export default function ExpensesPage() {
         </button>
       </div>
 
+      {/* Date Filter */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-8">
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          className="bg-zinc-900 border border-zinc-700 px-3 py-2 rounded-lg text-sm"
+        />
+
+        {selectedDate && (
+          <button
+            onClick={() => setSelectedDate("")}
+            className="text-xs text-zinc-400 hover:text-white"
+          >
+            Clear filter
+          </button>
+        )}
+      </div>
+
       {/* List */}
-      {expenses.length > 0 ? (
+      {filteredExpenses.length > 0 ? (
         <div className="space-y-3">
-          {expenses.map((exp) => (
+          {filteredExpenses.map((exp) => (
             <div
               key={exp._id}
               className="flex justify-between items-center p-4 rounded-xl border border-zinc-800 bg-zinc-900/40 hover:bg-zinc-900/60 transition"
@@ -111,15 +137,22 @@ export default function ExpensesPage() {
         </div>
       ) : (
         <div className="text-center py-16 border border-dashed border-zinc-800 rounded-2xl">
-          <p className="text-zinc-500 mb-3">No expenses yet</p>
+          <p className="text-zinc-500 mb-3">
+            {selectedDate
+              ? "No expenses found for selected date"
+              : "No expenses yet"}
+          </p>
+
           <button
             onClick={() => setOpen(true)}
             className="bg-emerald-600 hover:bg-emerald-500 text-black px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 mx-auto"
           >
-            <Plus size={16} /> Add Your First Expense
+            <Plus size={16} /> Add Expense
           </button>
         </div>
       )}
+
+      {/* Modal */}
       {open && (
         <AddExpenseModal
           onClose={() => setOpen(false)}
