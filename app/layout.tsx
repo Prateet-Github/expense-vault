@@ -3,8 +3,9 @@ import "./globals.css";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "EdTech Assignment",
-  description: "EdTech assignment built with Next.js and TypeScript.",
+  title: "Expense Tracker",
+  description:
+    "A simple expense tracking app built with Next.js and TypeScript.",
 };
 
 export default function RootLayout({
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Toaster position="top-center" />
+
         {children}
       </body>
     </html>
