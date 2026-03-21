@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -11,7 +11,7 @@ const Footer = () => {
         {/* Brand */}
         <div>
           <h2 className="text-2xl font-bold text-emerald-500 mb-4">
-            Expense Tracker
+            ExpenseVault
           </h2>
           <p className="text-sm text-gray-400 leading-relaxed">
             Track your expenses effortlessly with our intuitive and
@@ -69,12 +69,20 @@ const Footer = () => {
               <Twitter size={20} />
             </a>
             <a
-              href="www.linkedin.com/in/prateet-tiwari"
+              href="https://linkedin.com/in/prateet-tiwari"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-emerald-500 transition"
             >
               <Linkedin size={20} />
+            </a>
+            <a
+              href="mailto:prateettiwari29@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-500 transition"
+            >
+              <Mail size={20} />
             </a>
           </div>
         </div>
@@ -83,7 +91,7 @@ const Footer = () => {
 
       {/* Bottom Section */}
       <div className="pt-6 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Expense Tracker. Made by Prateet Tiwari.
+        © {new Date().getFullYear()} ExpenseVault. Made by Prateet Tiwari.
       </div>
     </footer>
   );

@@ -3,9 +3,9 @@ import "./globals.css";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Expense Tracker",
+  title: "ExpenseVault",
   description:
-    "A simple expense tracking app built with Next.js and TypeScript.",
+    "ExpenseVault is a secure and user-friendly expense tracking application.",
 };
 
 export default function RootLayout({

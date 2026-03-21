@@ -39,17 +39,23 @@ const Navbar = () => {
       <nav className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto border-b border-emerald-500">
         {/* Logo */}
         <Link href="/" className="text-emerald-500 font-bold text-2xl">
-          Expense Tracker
+          ExpenseVault
         </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex gap-20 items-center">
           {/* Links */}
           <div className="flex gap-4">
-            <Link href="/dashboard" className="text-emerald-500">
+            <Link
+              href="/dashboard"
+              className="text-emerald-500 cursor-pointer hover:text-emerald-400 transition"
+            >
               Dashboard
             </Link>
-            <Link href="/expenses" className="text-emerald-500">
+            <Link
+              href="/expenses"
+              className="text-emerald-500 cursor-pointer hover:text-emerald-400 transition"
+            >
               Expenses
             </Link>
           </div>
@@ -59,7 +65,7 @@ const Navbar = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setDropdownOpen((prev) => !prev)}
-                className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-black font-bold border hover:bg-emerald-400 transition"
+                className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-black font-bold border hover:bg-emerald-400 transition cursor-pointer"
               >
                 {getInitials(user?.name || "User")}
               </button>

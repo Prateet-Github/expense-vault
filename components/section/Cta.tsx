@@ -10,7 +10,7 @@ const Cta = () => {
               Ready to take control of your finances?
             </h2>
 
-            <p className="text-black/80 text-sm sm:text-base">
+            <p className="text-black/80 text-sm sm:text-base font-medium">
               Track every expense, understand your spending patterns, and build
               smarter financial habits with a system designed for clarity and
               long-term growth.
