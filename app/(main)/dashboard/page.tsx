@@ -90,7 +90,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen mx-auto px-6 py-10 text-white animate-in fade-in duration-500">
+    <div className="min-h-screen max-w-7xl mx-auto px-6 py-10 text-white animate-in fade-in duration-500">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
         <div>

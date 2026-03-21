@@ -66,7 +66,7 @@ export default function ExpensesPage() {
   }
 
   return (
-    <div className="min-h-screen mx-auto px-6 py-10 text-white">
+    <div className="min-h-screen max-w-7xl mx-auto px-6 py-10 text-white">
       {/* Header */}
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-2xl font-bold">Your Expenses</h1>
@@ -112,9 +112,12 @@ export default function ExpensesPage() {
       ) : (
         <div className="text-center py-16 border border-dashed border-zinc-800 rounded-2xl">
           <p className="text-zinc-500 mb-3">No expenses yet</p>
-          <Link href="/expenses/new" className="text-emerald-500 underline">
-            Add your first expense →
-          </Link>
+          <button
+            onClick={() => setOpen(true)}
+            className="bg-emerald-600 hover:bg-emerald-500 text-black px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 mx-auto"
+          >
+            <Plus size={16} /> Add Your First Expense
+          </button>
         </div>
       )}
       {open && (

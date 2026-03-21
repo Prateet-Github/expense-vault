@@ -5,8 +5,8 @@ import { Github, Twitter, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-emerald-500 bg-white dark:bg-black">
-      <div className="px-6 py-12">
+    <footer className="border-t border-emerald-500 bg-black max-w-7xl mx-auto">
+      <div className="px-6 py-12  bg-black">
         {/* Top Section */}
         <div className="grid md:grid-cols-3 gap-10">
           {/* Brand */}

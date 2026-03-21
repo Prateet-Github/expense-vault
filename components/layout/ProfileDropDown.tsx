@@ -15,7 +15,7 @@ export default function ProfileDropdown({
       {/* User Info */}
       <div className="flex flex-col items-center gap-2">
         <p className="font-medium text-white truncate max-w-37.5">
-          {user?.name}
+          {user?.name || "Loading..."}
         </p>
       </div>
 
