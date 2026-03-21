@@ -80,6 +80,7 @@ export default function AddExpenseModal({ onClose, onSuccess }: Props) {
           <option>Entertainment</option>
           <option>Shopping</option>
           <option>Health</option>
+          <option>Stationery</option>
           <option>Other</option>
         </select>
 

@@ -66,7 +66,7 @@ export default function ExpensesPage() {
   }
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto px-6 py-10 text-white">
+    <div className="min-h-screen max-w-7xl mx-auto px-4 py-10 text-white">
       {/* Header */}
       <div className="flex justify-between items-center mb-10">
         <h1 className="text-2xl font-bold">Your Expenses</h1>

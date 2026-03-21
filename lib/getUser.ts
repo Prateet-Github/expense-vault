@@ -9,7 +9,7 @@ export const getUserFromRequest = async () => {
 
   try {
     const decoded = await verifyToken(token);
-    return decoded; 
+    return decoded;
   } catch (error) {
     console.error("JWT Verification Error:", error);
     return null;

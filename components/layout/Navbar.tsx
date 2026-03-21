@@ -34,7 +34,7 @@ const Navbar = () => {
   if (!mounted) return null;
 
   return (
-    <header className="fixed bg-white dark:bg-black top-0 left-0 w-full right-0  z-50">
+    <header className="fixed bg-black top-0 left-0 w-full right-0  z-50">
       {/* NAV */}
       <nav className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto border-b border-emerald-500">
         {/* Logo */}

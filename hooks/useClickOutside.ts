@@ -1,7 +1,6 @@
 import { useEffect, RefObject } from "react";
 
 export default function useClickOutside(
-  // Accept one ref OR an array of refs
   refs: RefObject<HTMLElement | null> | RefObject<HTMLElement | null>[],
   handler: () => void
 ) {
@@ -10,7 +9,6 @@ export default function useClickOutside(
       const target = event.target as Node;
       const refsArray = Array.isArray(refs) ? refs : [refs];
 
-      // If the click is inside ANY of the provided refs, do nothing
       const isInside = refsArray.some(
         (ref) => ref.current && ref.current.contains(target)
       );

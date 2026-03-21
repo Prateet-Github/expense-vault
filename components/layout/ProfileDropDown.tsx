@@ -14,7 +14,7 @@ export default function ProfileDropdown({
     <div className="absolute right-0 top-12 z-50 min-w-45 p-4 bg-black border border-emerald-500 rounded-lg shadow-lg flex flex-col gap-4 animate-in fade-in zoom-in-95 duration-150">
       {/* User Info */}
       <div className="flex flex-col items-center gap-2">
-        <p className="font-medium text-white truncate max-w-37.5">
+        <p className="font-medium text-emerald-500 truncate max-w-37.5">
           {user?.name || "Loading..."}
         </p>
       </div>
