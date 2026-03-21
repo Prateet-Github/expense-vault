@@ -1,5 +1,17 @@
 "use client";
 
+import {
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
 import { useEffect, useState } from "react";
 import { Wallet, TrendingUp, CreditCard, Plus, Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -73,6 +85,13 @@ export default function Dashboard() {
 
   const totalSpent = stats.reduce((acc, curr) => acc + curr.total, 0);
 
+  const chartData = stats.map((item) => ({
+    name: item._id,
+    value: item.total,
+  }));
+
+  const COLORS = ["#10b981", "#22c55e", "#34d399", "#6ee7b7", "#a7f3d0"];
+
   if (loading) {
     return (
       <div className="h-[80vh] flex items-center justify-center">
@@ -90,7 +109,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto px-6 py-10 text-white animate-in fade-in duration-500">
+    <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 py-10 text-white">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
         <div>
@@ -102,7 +121,7 @@ export default function Dashboard() {
 
         <Link
           href="/expenses"
-          className="bg-emerald-600 hover:bg-emerald-500 text-black px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all active:scale-95 shadow-lg shadow-emerald-900/20"
+          className="bg-emerald-600 hover:bg-emerald-500 text-black px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"
         >
           <Plus size={18} /> Add Expense
         </Link>
@@ -132,8 +151,8 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* Recent Activity */}
         <section>
           <div className="flex justify-between items-center mb-6">
@@ -151,68 +170,72 @@ export default function Dashboard() {
               recentExpenses.map((exp) => (
                 <div
                   key={exp._id}
-                  className="bg-zinc-900/40 border border-zinc-800/50 p-4 rounded-2xl flex justify-between items-center hover:bg-zinc-900/60 transition"
+                  className="bg-zinc-900/40 border border-zinc-800 p-4 rounded-xl flex justify-between items-center"
                 >
-                  <div className="min-w-0">
-                    <p className="font-medium text-sm truncate">{exp.title}</p>
-                    <p className="text-[11px] text-zinc-500 uppercase tracking-wider">
-                      {exp.category}
-                    </p>
+                  <div>
+                    <p className="font-medium text-sm">{exp.title}</p>
+                    <p className="text-xs text-zinc-500">{exp.category}</p>
                   </div>
 
-                  <p className="font-bold text-emerald-500 shrink-0">
-                    -₹{exp.amount.toLocaleString()}
+                  <p className="font-bold text-emerald-500">
+                    ₹{exp.amount.toLocaleString()}
                   </p>
                 </div>
               ))
             ) : (
-              <div className="py-10 text-center border border-dashed border-zinc-800 rounded-2xl">
-                <p className="text-zinc-500 text-sm mb-2">
-                  No expenses recorded yet.
-                </p>
-                <Link
-                  href="/expenses"
-                  className="text-emerald-500 underline text-sm"
-                >
-                  Add your first expense →
-                </Link>
-              </div>
+              <p className="text-zinc-500 text-sm">No expenses yet.</p>
             )}
           </div>
         </section>
 
-        {/* Breakdown */}
+        {/* Charts */}
         <section>
-          <h2 className="text-lg font-semibold mb-6">Spending Breakdown</h2>
+          <h2 className="text-lg font-semibold mb-6">Spending Insights</h2>
 
-          <div className="bg-zinc-900/20 border border-zinc-800/50 p-7 rounded-3xl space-y-7">
+          <div className="bg-zinc-900/20 border border-zinc-800 p-6 rounded-2xl space-y-8">
             {stats.length > 0 ? (
-              stats.map((item) => (
-                <div key={item._id}>
-                  <div className="flex justify-between text-xs mb-2">
-                    <span className="text-zinc-400 uppercase tracking-widest">
-                      {item._id}
-                    </span>
-                    <span className="font-bold">
-                      ₹{item.total.toLocaleString()}
-                    </span>
-                  </div>
-
-                  <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-emerald-500 transition-all duration-700"
-                      style={{
-                        width: `${
-                          totalSpent > 0 ? (item.total / totalSpent) * 100 : 0
-                        }%`,
-                      }}
-                    />
-                  </div>
+              <>
+                {/* Pie Chart */}
+                <div className="h-64">
+                  <ResponsiveContainer>
+                    <PieChart>
+                      <Pie
+                        data={chartData}
+                        dataKey="value"
+                        nameKey="name"
+                        outerRadius={80}
+                        label={({ name, percent }) =>
+                          `${name} ${((percent ?? 0) * 100).toFixed(0)}%`
+                        }
+                      >
+                        {chartData.map((_, i) => (
+                          <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
                 </div>
-              ))
+
+                {/* Bar Chart */}
+                <div className="h-64">
+                  <ResponsiveContainer>
+                    <BarChart data={chartData}>
+                      <XAxis dataKey="name" stroke="#888" />
+                      <YAxis stroke="#888" />
+                      <Tooltip />
+                      <Bar dataKey="value">
+                        {chartData.map((_, i) => (
+                          <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </>
             ) : (
-              <p className="text-zinc-500 text-sm text-center py-4 italic">
-                Add expenses to see breakdown.
+              <p className="text-zinc-500 text-sm text-center">
+                Add expenses to see charts
               </p>
             )}
           </div>
