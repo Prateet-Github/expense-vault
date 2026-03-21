@@ -7,7 +7,7 @@ export const generateToken = (payload: object): string => {
   if (!JWT_SECRET) {
     throw new Error('JWT_SECRET is not defined in environment variables');
   }
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
 };
 
 export const verifyToken = async (token: string) => {
@@ -17,7 +17,7 @@ export const verifyToken = async (token: string) => {
 
   try {
     const secret = new TextEncoder().encode(JWT_SECRET);
-    
+
     const { payload } = await jose.jwtVerify(token, secret);
 
     return payload;
