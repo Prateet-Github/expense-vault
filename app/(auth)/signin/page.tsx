@@ -40,8 +40,8 @@ export default function Signin() {
       toast.success("Logged in! Redirecting...");
 
       setTimeout(() => {
-        router.push("/");
-      }, 1000);
+        window.location.href = "/"; 
+      }, 800);
     } catch (error) {
       toast.error("Network error. Please try again.");
     } finally {

@@ -28,14 +28,16 @@ export async function POST(req: Request) {
 
     response.cookies.set("auth_token", token, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 7,
       path: "/",
     });
 
+    console.log("cookie set:", response.cookies.get("auth_token")?.value?.slice(0, 20));
     return response;
   } catch (error) {
+    console.error("Signin error:", error);
     return NextResponse.json({ error: "Login failed" }, { status: 500 });
   }
 }
