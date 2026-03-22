@@ -5,9 +5,11 @@ import { Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
-export default function Signup() {
+export default function Signin() {
   const router = useRouter();
+  const { setUser } = useAuth();
   const [loading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -33,6 +35,7 @@ export default function Signup() {
         return;
       }
 
+      setUser(data.user);
       toast.success("Logged in! Redirecting...");
 
       setTimeout(() => {

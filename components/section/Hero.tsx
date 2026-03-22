@@ -2,15 +2,22 @@
 
 import Link from "next/link";
 import { ArrowRight, TrendingUp } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/AuthContext";
+import { useState, useEffect } from "react";
 
 const Hero = () => {
   const { user } = useAuth();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isLoggedIn = mounted && !!user;
 
   return (
     <section className="flex items-center px-4 sm:px-6 lg:px-12 min-h-screen text-white">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
-        
         {/* LEFT */}
         <div className="space-y-6 sm:space-y-8">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold leading-tight tracking-tight">
@@ -27,18 +34,15 @@ const Hero = () => {
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            
-            {/* Primary Button */}
             <Link
-              href={user ? "/dashboard" : "/signup"}
-              className="bg-emerald-600 hover:bg-emerald-500 text-black px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2"
+              href={isLoggedIn ? "/dashboard" : "/signup"}
+              className="bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2"
             >
-              {user ? "Go to Dashboard" : "Get Started"}
+              {isLoggedIn ? "Go to Dashboard" : "Get Started"}
               <ArrowRight size={18} />
             </Link>
 
-            {/* Secondary Button (only if NOT logged in) */}
-            {!user && (
+            {!isLoggedIn && (
               <Link
                 href="/signin"
                 className="bg-zinc-900 border border-zinc-700 px-6 py-3 rounded-xl font-bold text-center"
@@ -49,10 +53,10 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* RIGHT */}
+        {/* RIGHT — no auth dependency, unchanged */}
+
         <div className="relative mt-10 lg:mt-0">
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 sm:p-6 shadow-xl">
-            
             <div className="flex justify-between items-center mb-4 sm:mb-6">
               <div className="text-xs text-zinc-500 uppercase tracking-widest">
                 Portfolio

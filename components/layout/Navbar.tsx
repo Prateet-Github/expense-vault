@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/AuthContext";
 import ProfileDropdown from "./ProfileDropDown";
 import useClickOutside from "@/hooks/useClickOutside";
 import { getInitials } from "@/utils/string";
@@ -34,7 +34,7 @@ const Navbar = () => {
   if (!mounted) return null;
 
   return (
-    <header className="fixed bg-black top-0 left-0 w-full right-0  z-50">
+    <header className="fixed bg-black text-white top-0 left-0 w-full right-0  z-50">
       {/* NAV */}
       <nav className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto border-b border-emerald-500">
         {/* Logo */}
@@ -78,13 +78,13 @@ const Navbar = () => {
             <div className="flex gap-4">
               <Link
                 href="/signup"
-                className="border-2 border-emerald-600 hover:border-emerald-700 py-2 px-4 rounded-lg text-emerald-500"
+                className="border-2 border-emerald-500 hover:border-emerald-400 hover:text-emerald-400 py-2 px-4 rounded-lg text-emerald-500"
               >
                 Sign Up
               </Link>
               <Link
                 href="/signin"
-                className="bg-emerald-600 hover:bg-emerald-700 text-black py-2 px-4 rounded-lg"
+                className="bg-emerald-500 hover:bg-emerald-400 text-black py-2 px-4 rounded-lg"
               >
                 Sign In
               </Link>
