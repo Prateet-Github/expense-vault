@@ -23,12 +23,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    fetch("/api/auth/me")
+    fetch("/api/auth/me", { credentials: "include" })
       .then((r) => r.json())
       .then((data) => setUser(data.user ?? (data.name ? data : null)))
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
-  }, []); 
+  }, []);
 
   const logout = async () => {
     try {
