@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const [mounted, setMounted] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -23,11 +23,27 @@ const Navbar = () => {
     setMounted(true);
   }, []);
 
-  // lock scroll when mobile menu open
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    if (mobileOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, parseInt(scrollY || "0") * -1);
+    }
+
     return () => {
       document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
     };
   }, [mobileOpen]);
 
@@ -132,8 +148,11 @@ const Navbar = () => {
           {/* Bottom */}
           <div className="mt-auto">
             {user ? (
-              <button className="w-full border border-rose-400 text-red-400 py-4 rounded-xl font-bold">
-                Logout
+              <button
+                onClick={logout}
+                className="w-full border border-rose-400 text-red-400 py-4 rounded-xl font-bold"
+              >
+                Sign Out
               </button>
             ) : (
               <div className="flex flex-col gap-4">

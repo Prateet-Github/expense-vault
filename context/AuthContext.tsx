@@ -28,19 +28,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .then((data) => setUser(data.user ?? (data.name ? data : null)))
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
-  }, []); // fires ONCE for the entire app
+  }, []); 
 
   const logout = async () => {
     try {
       const res = await fetch("/api/auth/signout", { method: "POST" });
       if (res.ok) {
         setUser(null);
-        toast.success("Logged out successfully");
+        toast.success("Signed out successfully!");
         router.push("/signin");
         router.refresh();
       }
     } catch {
-      toast.error("Logout failed");
+      toast.error("Sign Out failed!");
     }
   };
 
